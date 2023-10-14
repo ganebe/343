@@ -36,7 +36,7 @@ private:
 // utility functions
     void inorderHelper(Node*) const;
     void sideways(Node*, int) const;			// provided below, helper for displaySideways()
-	bool retrieveHelper(Node* node, const NodeData& current, NodeData* checker) const;
+	bool retrieveHelper(Node*, const NodeData& , NodeData*) const;
 };
 
 #endif
