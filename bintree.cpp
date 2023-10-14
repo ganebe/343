@@ -96,8 +96,7 @@ bool BinTree::equalHelper(const Node *current, const Node *other) const
    return false;
 }
 
-BinTree::~BinTree()
-{
+
 	
 BinTree::~BinTree(){
 	if(root == NULL){
