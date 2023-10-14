@@ -7,7 +7,9 @@ using namespace std;
 int main()
 {
 NodeData *n = new NodeData;
-n->setData("hello");
+ifstream file;
+file.open("data2.txt");
+n->setData(file);
 BinTree A;
 
 A.insert(n);

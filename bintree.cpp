@@ -59,8 +59,12 @@ bool BinTree::retrieveHelper(Node *node, const NodeData &current, NodeData *chec
 	}
 }
 
+BinTree::~BinTree(){
+	
+}
 
-bool BinTree::isEmpty() const{
+bool BinTree::isEmpty() const
+{
     if(root == NULL){
         return true;
     }else{
@@ -116,3 +120,4 @@ bool BinTree::insert(NodeData * input_data){
 
 	return false; //something went wrong if this line get excute
 }
+
