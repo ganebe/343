@@ -6,7 +6,7 @@ using namespace std;
 
 
 class BinTree{
-
+	friend ostream & operator <<(ostream &, const BinTree &);
 public:
 	BinTree();								// constructor
 	BinTree(const BinTree &);				// copy constructor
@@ -18,6 +18,9 @@ public:
 	bool operator!=(const BinTree &) const;
 	bool insert(NodeData*);
 	bool retrieve(...) const;
+	int getHeight(const NodeData &) const;
+	void bstreeToArray(NodeData* []);
+	void arrayToBSTree(NodeData* []);
 	void displaySideways() const;			// provided below, displays the tree sideways
 
 private:
