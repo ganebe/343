@@ -99,6 +99,24 @@ bool BinTree::equalHelper(const Node *current, const Node *other) const
 BinTree::~BinTree()
 {
 	
+BinTree::~BinTree(){
+	if(root == NULL){
+		return;
+	}else{
+		deleteHelper(root);
+	}
+}
+
+void BinTree::deleteHelper(Node* & delete_node){
+	if(delete_node == NULL){
+		return;
+	}
+	deleteHelper(delete_node->left);
+	deleteHelper(delete_node->right);
+	delete delete_node->data;
+	delete_node->left = NULL;
+	delete_node->right = NULL;
+	delete delete_node;
 }
 
 bool BinTree::isEmpty() const
