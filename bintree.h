@@ -17,7 +17,7 @@ public:
 	bool operator==(const BinTree &) const;
 	bool operator!=(const BinTree &) const;
 	bool insert(NodeData*);
-	bool retrieve(...) const;
+	bool retrieve(const NodeData& current, NodeData*& checker) const;
 	int getHeight(const NodeData &) const;
 	void bstreeToArray(NodeData* []);
 	void arrayToBSTree(NodeData* []);
@@ -32,8 +32,9 @@ private:
 	Node* root;								// root of the tree
 
 // utility functions
-    void inorderHelper( ... ) const;
+    void inorderHelper(Node*) const;
     void sideways(Node*, int) const;			// provided below, helper for displaySideways()
+	bool retrieveHelper(Node* node, const NodeData& current, NodeData* checker) const;
 };
 
 #endif
