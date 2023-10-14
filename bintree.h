@@ -13,11 +13,12 @@ public:
 	~BinTree();								// destructor, calls makeEmpty	
 	bool isEmpty() const;					// true if tree is empty, otherwise false
 	void makeEmpty();						// make the tree empty so isEmpty returns true
+	//operator overload
 	BinTree& operator=(const BinTree &);
 	bool operator==(const BinTree &) const;
 	bool operator!=(const BinTree &) const;
 	bool insert(NodeData*);
-	bool retrieve(const NodeData& current, NodeData*& checker) const;
+	bool retrieve(const NodeData &, NodeData* &) const;
 	int getHeight(const NodeData &) const;
 	void bstreeToArray(NodeData* []);
 	void arrayToBSTree(NodeData* []);
@@ -30,6 +31,7 @@ private:
 		Node* right;						// right subtree pointer
 	};
 	Node* root;								// root of the tree
+	
 
 // utility functions
     void inorderHelper(Node*) const;
