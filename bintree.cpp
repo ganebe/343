@@ -76,6 +76,11 @@ bool BinTree::operator==(const BinTree &other) const
     return equalHelper(root, other.root);
 }
 
+bool BinTree::operator!=(const BinTree &other) const
+{
+    return !(*this == other);
+}
+
 bool BinTree::equalHelper(const Node *current, const Node *other) const
 {
    if (current == nullptr && other == nullptr)
