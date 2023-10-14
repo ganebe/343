@@ -40,3 +40,47 @@ BinTree::BinTree(){
     root = NULL;
 }
 
+bool BinTree::insert(NodeData * input_data){
+    if(root == NULL){
+		Node* temp = new Node;
+		temp->data = new NodeData(*input_data);
+		temp->left = NULL;
+		temp->right = NULL;
+		root = temp;
+		return true;
+	}else{
+		Node * current;
+		Node * next;
+		current = root;
+		next = NULL;
+		bool is_insert = false;
+		while(!is_insert){
+			if(*current->data == *input_data){
+				return false;
+			}else if(*current->data < *input_data){
+				next = current->left;
+				if(next == NULL){
+					current->left = new Node;
+					current->left->data = new NodeData(*input_data);
+					current->left->left = NULL;
+					current->left->right = NULL;
+					return true;
+				}
+				current = next;
+			}else{
+				next = current->right;
+				if(next == NULL){
+					current->right = new Node;
+					current->right->data = new NodeData(*input_data);
+					current->right->left = NULL;
+					current->right->right = NULL;
+					return true;
+				}
+				current = next;
+			}
+		}
+		
+	}
+
+	return false; //something went wrong if this line get excute
+}
