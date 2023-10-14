@@ -35,3 +35,8 @@ bool BinTree::isEmpty() const{
         return false;
     }
 }
+
+BinTree::BinTree(){
+    root = NULL;
+}
+
