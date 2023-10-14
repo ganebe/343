@@ -63,13 +63,37 @@ bool BinTree::retrieveHelper(Node *node, const NodeData &current, NodeData *chec
 
 	if (current < *(node->data))
 	{
-		return retrieveHelper(node->left, current, checker);
-
+		retrieveHelper(node->left, current, checker);
 	}
 	if(current > *(node->data))
 	{
-	 retrieveHelper(node->right, current, checker);
+	 	retrieveHelper(node->right, current, checker);
 	}
+}
+
+bool BinTree::operator==(const BinTree &other) const
+{
+    return equalHelper(root, other.root);
+}
+
+bool BinTree::equalHelper(const Node *current, const Node *other) const
+{
+   if (current == nullptr && other == nullptr)
+   {
+	return true;
+   }
+
+   if (current == nullptr || other == nullptr)
+   {
+	return false;
+   }
+
+   if(current != nullptr && other != nullptr)
+   {
+	return (*current->data == *other->data) && equalHelper(current->left, other->left) && equalHelper(current->right,other->right);
+   }
+
+   return false;
 }
 
 BinTree::~BinTree()
@@ -91,7 +115,10 @@ BinTree::BinTree()
     root = NULL;
 }
 
-bool BinTree::insert(NodeData * input_data){
+
+
+bool BinTree::insert(NodeData *input_data)
+{
     if(root == NULL){
 		Node* temp = new Node;
 		temp->data = new NodeData(*input_data);
@@ -135,4 +162,3 @@ bool BinTree::insert(NodeData * input_data){
 
 	return false; //something went wrong if this line get excute
 }
-
