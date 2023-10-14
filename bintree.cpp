@@ -31,7 +31,22 @@ void BinTree::sideways(Node* current, int level) const{
 
 bool BinTree::retrieve(const NodeData &current, NodeData *&checker) const
 {
-    return retrieveHelper(root, current, checker);
+    if(root != nullptr)
+	{
+		retrieveHelper(root, current, checker);
+		if(checker != nullptr)
+		{
+			if (*checker == current)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	return false;
 }
 
 bool BinTree::retrieveHelper(Node *node, const NodeData &current, NodeData *checker) const
@@ -39,13 +54,11 @@ bool BinTree::retrieveHelper(Node *node, const NodeData &current, NodeData *chec
     if (node == nullptr)
 	{
 		checker = nullptr;
-		return false;
 	}
 
 	if (current== *(node->data))
 	{
 		checker = node->data;
-		return true;
 	}
 
 	if (current < *(node->data))
@@ -88,7 +101,8 @@ bool BinTree::isEmpty() const
     }
 }
 
-BinTree::BinTree(){
+BinTree::BinTree()
+{
     root = NULL;
 }
 
