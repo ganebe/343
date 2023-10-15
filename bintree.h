@@ -12,7 +12,6 @@ public:
 	BinTree(const BinTree &);				// copy constructor
 	~BinTree();								// destructor, calls makeEmpty	
 	bool isEmpty() const;					// true if tree is empty, otherwise false
-	void makeEmpty();						// make the tree empty so isEmpty returns true
 	//operator overload
 	BinTree& operator=(const BinTree &);
 	bool operator==(const BinTree &) const;
@@ -38,7 +37,8 @@ private:
     void sideways(Node*, int) const;			// provided below, helper for displaySideways()
 	bool retrieveHelper(Node*, const NodeData& , NodeData*) const;
 	bool equalHelper(const Node*, const Node*)const;
-	void deleteHelper(Node*&);
+	void makeEmpty();
+	void makeEmptyHelper(Node*&);
 };
 
 #endif

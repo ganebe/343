@@ -102,27 +102,6 @@ bool BinTree::equalHelper(const Node *current, const Node *other) const
 }
 
 
-	
-BinTree::~BinTree(){
-	if(root == NULL){
-		return;
-	}else{
-		deleteHelper(root);
-	}
-}
-
-void BinTree::deleteHelper(Node* & delete_node){
-	if(delete_node == NULL){
-		return;
-	}
-	deleteHelper(delete_node->left);
-	deleteHelper(delete_node->right);
-	delete delete_node->data;
-	delete_node->left = NULL;
-	delete_node->right = NULL;
-	delete delete_node;
-}
-
 bool BinTree::isEmpty() const
 {
     if(root == NULL){
@@ -132,11 +111,28 @@ bool BinTree::isEmpty() const
     }
 }
 
+void BinTree::makeEmpty()
+{
+	makeEmptyHelper(root);
+}
+
+void BinTree::makeEmptyHelper(Node *& delete_node)
+{
+	if(delete_node == NULL){
+		return;
+	}else{
+		makeEmptyHelper(delete_node->left);
+		makeEmptyHelper(delete_node->right);
+		delete delete_node->data;
+		delete delete_node;
+		return;
+	}
+}
+
 BinTree::BinTree()
 {
     root = NULL;
 }
-
 
 
 bool BinTree::insert(NodeData *input_data)
@@ -157,7 +153,7 @@ bool BinTree::insert(NodeData *input_data)
 		while(!is_insert){
 			if(*current->data == *input_data){
 				return false;
-			}else if(*current->data < *input_data){
+			}else if(*current->data > *input_data){
 				next = current->left;
 				if(next == NULL){
 					current->left = new Node;
