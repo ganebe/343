@@ -174,6 +174,11 @@ BinTree::BinTree(const BinTree & rhs)
 	*this = rhs;
 }
 
+BinTree::~BinTree()
+{
+	makeEmpty();
+}
+
 bool BinTree::insert(NodeData *input_data)
 {
     if(root == NULL){
