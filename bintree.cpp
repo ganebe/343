@@ -299,3 +299,19 @@ int BinTree::getHeightHelper(Node* & location)const{
 		return 1 + max( getHeightHelper(location->left), getHeightHelper(location->right) );
 	}
 }
+
+
+void BinTree::arrayToBSTree(NodeData* arr[]){
+	int arr_size = 0;
+	for(int i = 0; i < 100; i++){
+		if(arr[i] != NULL){
+			arr_size++;
+		}
+	}
+	makeEmpty();
+	arrayToBstreeHelper(0, arr_size - 1, arr, root);
+}
+
+void BinTree::arrayToBstreeHelper(int low, int high, NodeData* arr[], Node* & insert_node){
+
+}

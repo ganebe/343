@@ -38,13 +38,12 @@ private:
     void sideways(Node*, int) const;			// provided below, helper for displaySideways()
 	bool retrieveHelper(Node*, const NodeData& , NodeData*) const;
 	bool equalHelper(const Node*, const Node*)const;
-	void makeEmpty();
 	void makeEmptyHelper(Node*&);
 	void nodeCopyHelper(Node* &, const Node*);
 	bool exist( Node* &, const NodeData &, Node*&) const;
 	int  getHeightHelper(Node* &)const;
 	void bstreeToArrayHelper(Node*, NodeData* [], int&);
-	void arrayToBstreeHelper(int, int, NodeData* [],Node* &);
+	void arrayToBstreeHelper(int, int, NodeData* [],Node* & );
 };
 
 #endif
