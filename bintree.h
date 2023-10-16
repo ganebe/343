@@ -40,6 +40,7 @@ private:
 	void makeEmpty();
 	void makeEmptyHelper(Node*&);
 	void nodeCopyHelper(Node* &,const Node* &);
+	void bstreeToArrayHelper(Node*, NodeData* [], int&);
 };
 
 #endif

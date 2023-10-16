@@ -49,6 +49,8 @@ bool BinTree::retrieve(const NodeData &current, NodeData *&checker) const
 	return false;
 }
 
+
+
 bool BinTree::retrieveHelper(Node *node, const NodeData &current, NodeData *checker) const
 {
     if (node == nullptr)
@@ -103,6 +105,25 @@ void BinTree::nodeCopyHelper(Node* & current_Node,const Node* & rhs){
 	}
 
 	return;
+}
+
+void BinTree::bstreeToArray(NodeData *arr[])
+{
+	int index = 0;
+	bstreeToArrayHelper(root, arr, index);
+	makeEmpty();
+}
+
+void BinTree::bstreeToArrayHelper(Node * node, NodeData *arr[], int& index)
+{
+	if (node == nullptr)
+	{
+		return;
+	}
+	bstreeToArrayHelper(node->left, arr, index);
+	arr[index] = new NodeData(*(node->data));
+	index++;
+	bstreeToArrayHelper(node->right, arr, index);
 }
 
 bool BinTree::operator==(const BinTree &other) const
