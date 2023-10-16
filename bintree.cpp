@@ -9,6 +9,7 @@ void BinTree::displaySideways() const{
 	sideways(root, 0);
 }
 
+
 //---------------------------- Sideways -------------------------------------
 // Helper method for displaySideways
 // Preconditions: NONE
@@ -28,6 +29,22 @@ void BinTree::sideways(Node* current, int level) const{
 	}
 }
 
+ostream &operator<<(ostream &out, const BinTree &other)
+{
+   other.inorderHelper(other.root, out);
+   return out;
+}
+
+void BinTree::inorderHelper(Node *node, ostream& out) const
+{
+	if (node == nullptr)
+	{
+		return;
+	}
+	inorderHelper(node->left, out);
+	cout << *(node->data);
+	inorderHelper(node->right, out);
+}
 
 bool BinTree::retrieve(const NodeData &current, NodeData *&checker) const
 {
@@ -58,7 +75,7 @@ bool BinTree::retrieveHelper(Node *node, const NodeData &current, NodeData *chec
 		checker = nullptr;
 	}
 
-	if (current== *(node->data))
+	if (current == *(node->data))
 	{
 		checker = node->data;
 	}
@@ -245,3 +262,4 @@ bool BinTree::insert(NodeData *input_data)
 
 	return false; //something went wrong if this line get excute
 }
+

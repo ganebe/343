@@ -33,7 +33,7 @@ private:
 	
 
 // utility functions
-    void inorderHelper(Node*) const;
+    void inorderHelper(Node*, ostream&) const;
     void sideways(Node*, int) const;			// provided below, helper for displaySideways()
 	bool retrieveHelper(Node*, const NodeData& , NodeData*) const;
 	bool equalHelper(const Node*, const Node*)const;
