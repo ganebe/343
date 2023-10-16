@@ -90,24 +90,26 @@ bool BinTree::retrieveHelper(Node *node, const NodeData &current, NodeData *chec
 	}
 }
 
-BinTree &BinTree::operator=(const BinTree & rhs)
+BinTree &BinTree::operator =(const BinTree & rhs)
 {
     if(*this == rhs){
 		return *this;
 	}
+
 	makeEmpty();
-	nodeCopyHelper(root,rhs.root);
+	nodeCopyHelper(root, rhs.root);
 	return *this;	
 }
 
-void BinTree::nodeCopyHelper(Node* & current_Node,const Node* & rhs){
+void BinTree::nodeCopyHelper(Node* & current_Node, const Node* rhs){
 	if(rhs == NULL){
 		return;
 	}else{
 		if(current_Node == NULL){  //create a new node if it is root;
 			current_Node = new Node;
 		}
-			current_Node->data = new NodeData(rhs->data);
+			current_Node->data = new NodeData;
+			*(current_Node->data) = *(rhs->data);
 			if(rhs->left == NULL && rhs->left == NULL){
 				return;
 			}
@@ -265,7 +267,7 @@ bool BinTree::insert(NodeData *input_data)
 
 
 
-int BinTree::getHeight(const NodeData & search_target) const{
+int BinTree::getHeight(const NodeData & search_target){
 	Node * target_pointer;
 	target_pointer = NULL;
 	if(exist(root, search_target,target_pointer) == false){
@@ -275,15 +277,15 @@ int BinTree::getHeight(const NodeData & search_target) const{
 	}
 }
 
-bool BinTree::exist(const Node* & tree, const NodeData & search_target, Node* & target_location) const{
+bool BinTree::exist( Node* & tree, const NodeData & search_target, Node* & target_location) const{
 	if(tree == NULL){
 		return false;
 	}else{
-		if(search_target == tree->data){
+		if(search_target == *(tree->data) ){
 			return true;
 		}
 
-		return exist(tree->left,search_target) || exist(tree->right,search_target);
+		return exist(tree->left, search_target, target_location) || exist(tree->right, search_target, target_location);
 	}
 }
 

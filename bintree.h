@@ -18,10 +18,11 @@ public:
 	bool operator!=(const BinTree &) const;
 	bool insert(NodeData*);
 	bool retrieve(const NodeData &, NodeData* &) const;
-	int getHeight(const NodeData &) const;
+	int getHeight(const NodeData &);
 	void bstreeToArray(NodeData* []);
 	void arrayToBSTree(NodeData* []);
 	void displaySideways() const;			// provided below, displays the tree sideways
+	void makeEmpty();
 
 private:
 	struct Node {
@@ -39,10 +40,11 @@ private:
 	bool equalHelper(const Node*, const Node*)const;
 	void makeEmpty();
 	void makeEmptyHelper(Node*&);
-	void nodeCopyHelper(Node* &,const Node* &);
-	bool exist(const Node* &, const NodeData &, Node*&) const;
+	void nodeCopyHelper(Node* &, const Node*);
+	bool exist( Node* &, const NodeData &, Node*&) const;
 	int  getHeightHelper(Node* &)const;
 	void bstreeToArrayHelper(Node*, NodeData* [], int&);
+	void arrayToBstreeHelper(int, int, NodeData* [],Node* &);
 };
 
 #endif
