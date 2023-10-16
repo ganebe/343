@@ -25,9 +25,9 @@ public:
 
 private:
 	struct Node {
-		NodeData* data;						// pointer to data object
-		Node* left;							// left subtree pointer
-		Node* right;						// right subtree pointer
+		NodeData* data = NULL;						// pointer to data object
+		Node* left = NULL;							// left subtree pointer
+		Node* right = NULL;						// right subtree pointer
 	};
 	Node* root;								// root of the tree
 	
@@ -39,6 +39,7 @@ private:
 	bool equalHelper(const Node*, const Node*)const;
 	void makeEmpty();
 	void makeEmptyHelper(Node*&);
+	void nodeCopyHelper(Node* &,const Node* &);
 };
 
 #endif

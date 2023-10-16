@@ -71,6 +71,40 @@ bool BinTree::retrieveHelper(Node *node, const NodeData &current, NodeData *chec
 	}
 }
 
+BinTree &BinTree::operator=(const BinTree & rhs)
+{
+    if(*this == rhs){
+		return *this;
+	}
+	makeEmpty();
+	nodeCopyHelper(root,rhs.root);
+	return *this;	
+}
+
+void BinTree::nodeCopyHelper(Node* & current_Node,const Node* & rhs){
+	if(rhs == NULL){
+		return;
+	}else{
+		if(current_Node == NULL){  //create a new node if it is root;
+			current_Node = new Node;
+		}
+			current_Node->data = new NodeData(rhs->data);
+			if(rhs->left == NULL && rhs->left == NULL){
+				return;
+			}
+			if(rhs->left != NULL){
+				current_Node->left = new Node;
+				nodeCopyHelper(current_Node->left, rhs->left);
+			}
+			if(rhs->right != NULL){
+				current_Node->right = new Node;
+				nodeCopyHelper(current_Node->right, rhs->right);
+			}
+	}
+
+	return;
+}
+
 bool BinTree::operator==(const BinTree &other) const
 {
     return equalHelper(root, other.root);
@@ -125,6 +159,7 @@ void BinTree::makeEmptyHelper(Node *& delete_node)
 		makeEmptyHelper(delete_node->right);
 		delete delete_node->data;
 		delete delete_node;
+		delete_node = NULL;
 		return;
 	}
 }
@@ -134,6 +169,10 @@ BinTree::BinTree()
     root = NULL;
 }
 
+BinTree::BinTree(const BinTree & rhs)
+{
+	*this = rhs;
+}
 
 bool BinTree::insert(NodeData *input_data)
 {
