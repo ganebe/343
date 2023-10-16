@@ -40,6 +40,8 @@ private:
 	void makeEmpty();
 	void makeEmptyHelper(Node*&);
 	void nodeCopyHelper(Node* &,const Node* &);
+	bool exist(const Node* &, const NodeData &, Node*&) const;
+	int  getHeightHelper(Node* &)const;
 	void bstreeToArrayHelper(Node*, NodeData* [], int&);
 };
 

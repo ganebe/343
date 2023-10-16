@@ -263,3 +263,37 @@ bool BinTree::insert(NodeData *input_data)
 	return false; //something went wrong if this line get excute
 }
 
+
+
+int BinTree::getHeight(const NodeData & search_target) const{
+	Node * target_pointer;
+	target_pointer = NULL;
+	if(exist(root, search_target,target_pointer) == false){
+		return 0;
+	}else{
+		return getHeightHelper(target_pointer);
+	}
+}
+
+bool BinTree::exist(const Node* & tree, const NodeData & search_target, Node* & target_location) const{
+	if(tree == NULL){
+		return false;
+	}else{
+		if(search_target == tree->data){
+			return true;
+		}
+
+		return exist(tree->left,search_target) || exist(tree->right,search_target);
+	}
+}
+
+int BinTree::getHeightHelper(Node* & location)const{
+	if(location == NULL){
+		return 0;
+	}
+	if(location->left == NULL && location->right == NULL){
+		return 1;
+	}else{
+		return 1 + max( getHeightHelper(location->left), getHeightHelper(location->right) );
+	}
+}
