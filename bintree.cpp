@@ -309,9 +309,29 @@ void BinTree::arrayToBSTree(NodeData* arr[]){
 		}
 	}
 	makeEmpty();
+	if( (arr_size - 1) >= 0){
+		root = new Node;
+	}
 	arrayToBstreeHelper(0, arr_size - 1, arr, root);
 }
 
 void BinTree::arrayToBstreeHelper(int low, int high, NodeData* arr[], Node* & insert_node){
-
+	if(high > low){
+		return;
+	}
+	if(high == low){
+		insert_node->data = new NodeData(*arr[high]);
+		return;
+	}
+	int mid = (high + low)/2;
+	insert_node->data = new NodeData(*arr[mid]);
+	if( (high - low) == 1 ){
+		insert_node->right = new Node;
+		arrayToBstreeHelper(high, high, arr, insert_node->right);
+	}
+	insert_node->right = new Node;
+	insert_node->left = new Node;
+	arrayToBstreeHelper(low, mid - 1, arr, insert_node->left);
+	arrayToBstreeHelper(mid + 1, high, arr, insert_node->right);
+	return;
 }
