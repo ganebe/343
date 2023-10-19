@@ -181,6 +181,7 @@ bool BinTree::isEmpty() const
 void BinTree::makeEmpty()
 {
 	makeEmptyHelper(root);
+	root = NULL;
 }
 
 void BinTree::makeEmptyHelper(Node *& delete_node)
