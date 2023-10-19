@@ -49,45 +49,37 @@ void BinTree::inorderHelper(Node *node, ostream& out) const
 
 bool BinTree::retrieve(const NodeData &current, NodeData *&checker) const
 {
-    if(root != nullptr)
-	{
-		retrieveHelper(root, current, checker);
-		if(checker != nullptr)
-		{
-			if (*checker == current)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}
-	return false;
+    checker = nullptr; // Initialize check to nullptr
+
+    if (root == nullptr) // Tree is empty
+    {
+        return false;
+    }
+
+    return retrieveHelper(root, current, checker);
 }
 
 
 
-bool BinTree::retrieveHelper(Node *node, const NodeData &current, NodeData *checker) const
+bool BinTree::retrieveHelper(Node *current, const NodeData &currData, NodeData *checker) const
 {
-    if (node == nullptr)
+	if (current == nullptr)
 	{
-		checker = nullptr;
+		return false; // Data not found
 	}
 
-	if (current == *(node->data))
+	if (currData == *(current->data))
 	{
-		checker = node->data;
+		checker = current->data;
+		return true; // Data found
 	}
-
-	if (current < *(node->data))
+	else if (currData < *(current->data))
 	{
-		retrieveHelper(node->left, current, checker);
+		return retrieveHelper(current->left, currData, checker); // Search in the left subtree
 	}
-	if(current > *(node->data))
+	else
 	{
-	 	retrieveHelper(node->right, current, checker);
+		return retrieveHelper(current->right, currData, checker); // Search in the right subtree
 	}
 }
 
