@@ -9,7 +9,7 @@
       "stopAtEntry": false,
       "externalConsole": true,
       "cwd": "d:/LinuxHomePage/343/assigment_2/343",
-      "program": "d:/LinuxHomePage/343/assigment_2/343/debug",
+      "program": "d:/LinuxHomePage/343/assigment_2/343/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

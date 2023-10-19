@@ -284,6 +284,7 @@ bool BinTree::exist( Node* & tree, const NodeData & search_target, Node* & targe
 		return false;
 	}else{
 		if(search_target == *(tree->data) ){
+			target_location = tree;
 			return true;
 		}
 
