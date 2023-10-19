@@ -307,6 +307,7 @@ void BinTree::arrayToBSTree(NodeData* arr[]){
 	if( (arr_size - 1) >= 0){
 		root = new Node;
 	}
+	root = NULL;
 	arrayToBstreeHelper(0, arr_size - 1, arr, root);
 }
 
