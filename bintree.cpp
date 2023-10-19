@@ -32,6 +32,7 @@ void BinTree::sideways(Node* current, int level) const{
 ostream &operator<<(ostream &out, const BinTree &other)
 {
    other.inorderHelper(other.root, out);
+   out << endl;
    return out;
 }
 
@@ -42,7 +43,7 @@ void BinTree::inorderHelper(Node *node, ostream& out) const
 		return;
 	}
 	inorderHelper(node->left, out);
-	out << *(node->data);
+	out << *(node->data) << " ";
 	inorderHelper(node->right, out);
 }
 
@@ -92,11 +93,14 @@ bool BinTree::retrieveHelper(Node *node, const NodeData &current, NodeData *chec
 
 BinTree &BinTree::operator =(const BinTree & rhs)
 {
-    if(*this == rhs){
+    if(this == &rhs){
 		return *this;
 	}
 
 	makeEmpty();
+	if(rhs.root != NULL){
+		root = new Node;
+	}
 	nodeCopyHelper(root, rhs.root);
 	return *this;	
 }
@@ -105,25 +109,22 @@ void BinTree::nodeCopyHelper(Node* & current_Node, const Node* rhs){
 	if(rhs == NULL){
 		return;
 	}else{
-		if(current_Node == NULL){  //create a new node if it is root;
-			current_Node = new Node;
-		}
-			current_Node->data = new NodeData;
-			*(current_Node->data) = *(rhs->data);
-			if(rhs->left == NULL && rhs->left == NULL){
-				return;
-			}
+			current_Node->data = new NodeData(*(rhs->data));
 			if(rhs->left != NULL){
 				current_Node->left = new Node;
 				nodeCopyHelper(current_Node->left, rhs->left);
+			}else{
+				current_Node->left = NULL;
 			}
 			if(rhs->right != NULL){
 				current_Node->right = new Node;
 				nodeCopyHelper(current_Node->right, rhs->right);
+			}else{
+				current_Node->right = NULL;
 			}
+			return;
 	}
 
-	return;
 }
 
 void BinTree::bstreeToArray(NodeData *arr[])
@@ -209,8 +210,9 @@ BinTree::BinTree()
     root = NULL;
 }
 
-BinTree::BinTree(const BinTree & rhs)
+BinTree::BinTree( BinTree & rhs)
 {
+	root = NULL;
 	*this = rhs;
 }
 

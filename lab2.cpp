@@ -47,6 +47,7 @@ int main() {
 	buildTree(T, infile);              // builds and displays initial data
 	cout << endl;
 	BinTree first(T);                  // test copy constructor
+	first.displaySideways();
 	dup = dup = T;                     // test operator=, self-assignment
 	while (!infile.eof()) {
 		cout << "Tree Inorder:" << endl << T;             // operator<< does endl

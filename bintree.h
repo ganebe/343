@@ -9,7 +9,7 @@ class BinTree{
 	friend ostream & operator <<(ostream &, const BinTree &);
 public:
 	BinTree();								// constructor
-	BinTree(const BinTree &);				// copy constructor
+	BinTree( BinTree &);				// copy constructor
 	~BinTree();								// destructor, calls makeEmpty	
 	bool isEmpty() const;					// true if tree is empty, otherwise false
 	//operator overload
@@ -26,9 +26,9 @@ public:
 
 private:
 	struct Node {
-		NodeData* data = NULL;						// pointer to data object
-		Node* left = NULL;							// left subtree pointer
-		Node* right = NULL;						// right subtree pointer
+		NodeData* data;						// pointer to data object
+		Node* left;							// left subtree pointer
+		Node* right;						// right subtree pointer
 	};
 	Node* root;								// root of the tree
 	
@@ -39,7 +39,7 @@ private:
 	bool retrieveHelper(Node*, const NodeData& , NodeData*) const;
 	bool equalHelper(const Node*, const Node*)const;
 	void makeEmptyHelper(Node*&);
-	void nodeCopyHelper(Node* &, const Node*);
+	void nodeCopyHelper(Node* &, const Node* );
 	bool exist( Node* &, const NodeData &, Node*&) const;
 	int  getHeightHelper(Node* &)const;
 	void bstreeToArrayHelper(Node*, NodeData* [], int&);
