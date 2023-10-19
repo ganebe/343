@@ -133,7 +133,7 @@ void BinTree::bstreeToArrayHelper(Node * node, NodeData *arr[], int& index)
 		return;
 	}
 	bstreeToArrayHelper(node->left, arr, index);
-	arr[index] = new NodeData(*(node->data));
+	arr[index] = node->data;
 	index++;
 	bstreeToArrayHelper(node->right, arr, index);
 }
@@ -259,7 +259,6 @@ bool BinTree::insert(NodeData *input_data)
 
 	return false; //something went wrong if this line get excute
 }
-
 
 
 int BinTree::getHeight(const NodeData & search_target){
