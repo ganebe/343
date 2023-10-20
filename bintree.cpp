@@ -133,7 +133,8 @@ void BinTree::bstreeToArrayHelper(Node * node, NodeData *arr[], int& index)
 		return;
 	}
 	bstreeToArrayHelper(node->left, arr, index);
-	arr[index] = node->data;
+	arr[index] = new NodeData;
+	*arr[index] = *node->data;
 	index++;
 	bstreeToArrayHelper(node->right, arr, index);
 }
@@ -303,27 +304,38 @@ void BinTree::arrayToBSTree(NodeData* arr[]){
 			arr_size++;
 		}
 	}
+	
 	makeEmpty();
 	if( (arr_size - 1) >= 0){
 		root = new Node;
 	}
-	root = NULL;
 	arrayToBstreeHelper(0, arr_size - 1, arr, root);
+	//clear the array after the tree is build
+	for(int i = 0; i < arr_size - 1; i++){
+		delete arr[i];
+		arr[i] = NULL;
+	}
 }
 
 void BinTree::arrayToBstreeHelper(int low, int high, NodeData* arr[], Node* & insert_node){
-	if(high > low){
+	if(high < low){
 		return;
 	}
 	if(high == low){
 		insert_node->data = new NodeData(*arr[high]);
+		insert_node->left = NULL;
+		insert_node->right = NULL;
 		return;
 	}
+	
 	int mid = (high + low)/2;
-	insert_node->data = new NodeData(*arr[mid]);
-	if( (high - low) == 1 ){
+	insert_node->data = new NodeData;
+	*insert_node->data = *arr[mid];
+		if( (high - low) == 1 ){
 		insert_node->right = new Node;
 		arrayToBstreeHelper(high, high, arr, insert_node->right);
+		insert_node->left = NULL;
+		return;
 	}
 	insert_node->right = new Node;
 	insert_node->left = new Node;
