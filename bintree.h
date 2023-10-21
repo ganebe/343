@@ -4,26 +4,37 @@
 #include "nodedata.h"
 using namespace std;
 
+// ------------------------------------------------bintree.h -------------------------------------------------------
+// Css 343 B Au 23
+// Created on 10/14/2023
+// Last Modified on 10/21/2023
+// Created by Vince Nguyen and Lok Yin Wong 
+// --------------------------------------------------------------------------------------------------------------------
+// Created for assignment 2
+// --------------------------------------------------------------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions.
+// --------------------------------------------------------------------------------------------------------------------
 
 class BinTree{
-	friend ostream & operator <<(ostream &, const BinTree &);
+	friend ostream& operator <<(ostream&, const BinTree&);  //print the tree inorder, each Nodedata is seprate with a space and ends with a endl.
 public:
-	BinTree();								// constructor
-	BinTree( BinTree &);				// copy constructor
+	//constructors
+	BinTree();								//default constructor
+	BinTree(BinTree&);				// copy constructor
 	~BinTree();								// destructor, calls makeEmpty	
-	bool isEmpty() const;					// true if tree is empty, otherwise false
 	//operator overload
-	BinTree& operator=(const BinTree &);
-	bool operator==(const BinTree &) const;
-	bool operator!=(const BinTree &) const;
-	bool insert(NodeData*);
-	bool retrieve(const NodeData &, NodeData* &) const;
-	int getHeight(const NodeData &);
-	void bstreeToArray(NodeData* []);
-	void arrayToBSTree(NodeData* []);
-	void displaySideways() const;			// provided below, displays the tree sideways
-	void makeEmpty();
-
+	BinTree& operator=(const BinTree&);	
+	bool operator==(const BinTree&) const;		//return true only if two trees have same data and structure, otherwise return false
+	bool operator!=(const BinTree&) const;		//return true whenever there is a differnce between two trees, otherwise return true
+	//functions
+	bool insert(NodeData*);						//insert a Nodedata to the tree when there is no duplicate and return true,otherwise return false.
+	bool retrieve(const NodeData&, NodeData* &) const;
+	int getHeight(const NodeData&);			//return 0 when the given Nodedata is not found, otherwise return it's greatest height
+	void bstreeToArray(NodeData* []);		//stores all Node from the current BinTree to the NodeData* array using inorder traversal, empty the current BinTree when done.
+	void arrayToBSTree(NodeData* []);		//builds a balanced BinTree using the Nodes from the NodeData*array, the array will fill with NULLs when done.
+	void displaySideways() const;			//displays the tree sideways
+	void makeEmpty();						//clear all nodes in the tree and release memory
+	bool isEmpty() const;					// true if tree is empty, otherwise false
 private:
 	struct Node {
 		NodeData* data;						// pointer to data object
@@ -33,17 +44,21 @@ private:
 	Node* root;								// root of the tree
 	
 
-// utility functions
-    void inorderHelper(Node*, ostream&) const;
-    void sideways(Node*, int) const;			// provided below, helper for displaySideways()
-	bool retrieveHelper(Node*, const NodeData& , NodeData*) const;
-	bool equalHelper(const Node*, const Node*)const;
-	void makeEmptyHelper(Node*&);
-	void nodeCopyHelper(Node* &, const Node* );
-	bool exist( Node* &, const NodeData &, Node*&) const;
-	int  getHeightHelper(Node* &)const;
-	void bstreeToArrayHelper(Node*, NodeData* [], int&);
-	void arrayToBstreeHelper(int, int, NodeData* [],Node* & );
+// utility functions and helper functions
+    void inorderHelper(Node*, ostream&) const;	//helper for operator <<
+    void sideways(Node*, int) const;			//helper for displaySideways()
+	bool retrieveHelper(Node*, const NodeData&, NodeData* &) const; //helper for retrieve
+	bool equalHelper(const Node*, const Node*)const; //heleper for operator ==
+	void makeEmptyHelper(Node*&);				//helper for makeEmpty()
+	void nodeCopyHelper(Node* &, const Node*); //helper for operator=
+
+	//helper for getHeight(const NodeData &), to find out if the NodeData passed in actually cotains in the tree
+	//it's actually very similar to retriveHelper, we created this extra fucntion since
+	//we required to implement getHeight for genereal binary tree
+	bool exist(Node* &, const NodeData&, Node*&) const;
+	int  getHeightHelper(Node* &)const;		//helper for getHeight(const NodeData &)
+	void bstreeToArrayHelper(Node*, NodeData* [], int&);	//heleper for bstreeToArray(NodeData* [])
+	void arrayToBstreeHelper(int, int, NodeData* [],Node* &);	//helper for arrayToBSTree(NodeData* [])
 };
 
 #endif

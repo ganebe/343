@@ -35,6 +35,11 @@ int main(){
     cout << A << endl; 
     cout << ndA << ndAB << ndAC << endl;
     BinTree C(A);
+    for(int i = 0 ; i < 2 ; i++){
+        NodeData g("g");
+        C.insert(&g);
+    }
+    /*
     NodeData* nde;
     nde = new NodeData("e");
     cout << "comparing c and a" <<endl;
@@ -43,12 +48,12 @@ int main(){
     cout << A << endl; 
     C.displaySideways();
     cout << C << endl;
-
+    
     delete nde;
     cout << "after deleting nde pointer" << endl;
     C.displaySideways();
     cout << C << endl;
-
+    */
     return 0;
 }
 
