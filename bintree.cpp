@@ -133,9 +133,9 @@ void BinTree::bstreeToArrayHelper(Node * node, NodeData *arr[], int& index)
 		return;
 	}
 	bstreeToArrayHelper(node->left, arr, index);
-	arr[index] = new NodeData;
-	*arr[index] = *node->data;
+	arr[index] = node->data;
 	index++;
+	node->data = nullptr;
 	bstreeToArrayHelper(node->right, arr, index);
 }
 
@@ -219,7 +219,7 @@ bool BinTree::insert(NodeData *input_data)
 {
     if(root == NULL){
 		Node* temp = new Node;
-		temp->data = new NodeData(*input_data);
+		temp->data = input_data;
 		temp->left = NULL;
 		temp->right = NULL;
 		root = temp;
@@ -237,7 +237,7 @@ bool BinTree::insert(NodeData *input_data)
 				next = current->left;
 				if(next == NULL){
 					current->left = new Node;
-					current->left->data = new NodeData(*input_data);
+					current->left->data = input_data;
 					current->left->left = NULL;
 					current->left->right = NULL;
 					return true;
@@ -247,7 +247,7 @@ bool BinTree::insert(NodeData *input_data)
 				next = current->right;
 				if(next == NULL){
 					current->right = new Node;
-					current->right->data = new NodeData(*input_data);
+					current->right->data = input_data;
 					current->right->left = NULL;
 					current->right->right = NULL;
 					return true;
@@ -257,7 +257,6 @@ bool BinTree::insert(NodeData *input_data)
 		}
 		
 	}
-
 	return false; //something went wrong if this line get excute
 }
 
