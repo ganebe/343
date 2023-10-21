@@ -310,7 +310,7 @@ void BinTree::arrayToBSTree(NodeData* arr[]){
 	}
 	arrayToBstreeHelper(0, arr_size - 1, arr, root);
 	//clear the array after the tree is build
-	for(int i = 0; i < arr_size - 1; i++){
+	for(int i = 0; i < arr_size; i++){
 		delete arr[i];
 		arr[i] = NULL;
 	}
