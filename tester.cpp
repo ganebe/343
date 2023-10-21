@@ -33,7 +33,7 @@ int main(){
     ndAC = ndAB;
     A.displaySideways();
     cout << A << endl; 
-    cout << ndA << ndAB << ndAC;
+    cout << ndA << ndAB << ndAC << endl;
     BinTree C(A);
     NodeData* nde;
     nde = new NodeData("e");
@@ -48,7 +48,8 @@ int main(){
     cout << "after deleting nde pointer" << endl;
     C.displaySideways();
     cout << C << endl;
-    cout << "after deleting nde pointer" << endl;
+
+    return 0;
 }
 
 void initArray(NodeData* ndArray[]) {
