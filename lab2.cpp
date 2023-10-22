@@ -18,7 +18,7 @@ const int ARRAYSIZE = 100;
 
 //global function prototypes
 void buildTree(BinTree&, ifstream&);      // 
-void initArray(NodeData*[]);             // initialize array to NULL
+void initArray(NodeData*[]);             // initialize array to nullptr
 
 int main() {
 	// create file object infile and open it
@@ -121,9 +121,9 @@ void buildTree(BinTree& T, ifstream& infile) {
 }
 
 //------------------------------- initArray ----------------------------------
-// initialize the array of NodeData* to NULL pointers
+// initialize the array of NodeData* to nullptr pointers
 
 void initArray(NodeData* ndArray[]) {
 	for (int i = 0; i < ARRAYSIZE; i++)
-		ndArray[i] = NULL;
+		ndArray[i] = nullptr;
 }

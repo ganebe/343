@@ -41,7 +41,7 @@ void BinTree::displaySideways() const {
 // Preconditions: NONE
 // Postconditions: BinTree remains unchanged.
 void BinTree::sideways(Node* current, int level) const {
-	if (current != NULL) {
+	if (current != nullptr) {
 		level++;
 		sideways(current->right, level);
 

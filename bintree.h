@@ -33,7 +33,7 @@ public:
 	bool retrieve(const NodeData&, NodeData* &) const;
 	int getHeight(const NodeData&);			//return 0 when the given Nodedata is not found, otherwise return it's greatest height
 	void bstreeToArray(NodeData* []);		//stores all Node from the current BinTree to the NodeData* array using inorder traversal, empty the current BinTree when done.
-	void arrayToBSTree(NodeData* []);		//builds a balanced BinTree using the Nodes from the NodeData*array, the array will fill with NULLs when done.
+	void arrayToBSTree(NodeData* []);		//builds a balanced BinTree using the Nodes from the NodeData*array, the array will fill with nullptrs when done.
 	void displaySideways() const;			//displays the tree sideways
 	void makeEmpty();						//clear all nodes in the tree and release memory
 	bool isEmpty() const;					// true if tree is empty, otherwise false

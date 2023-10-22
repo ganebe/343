@@ -84,5 +84,5 @@ int main(){
 
 void initArray(NodeData* ndArray[]) {
 	for (int i = 0; i < ARRAYSIZE; i++)
-		ndArray[i] = NULL;
+		ndArray[i] = nullptr;
 }
