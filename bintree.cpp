@@ -46,13 +46,21 @@ void BinTree::sideways(Node* current, int level) const
 	}
 }
 
+//---------------------------- operator << -------------------------------------
+// returns a stream that Display all NodeData in the BinTree with inorder traversal, each NodeData will seprate with a space
+// Preconditions: NONE
+// Postconditions: BinTree remains unchanged.
 ostream& operator <<(ostream& out, const BinTree& other)
 {
    other.inorderHelper(other.root, out);
-   out << endl;
+   out << endl; //adds an extra line after the whole tree is printed
    return out;
 }
 
+//---------------------------- inorderHelper-------------------------------------
+// Helper for operator <<
+// Preconditions: NONE
+// Postconditions: BinTree remains unchanged.
 void BinTree::inorderHelper(Node* node, ostream& out) const
 {
 	if (node == nullptr)
@@ -64,6 +72,10 @@ void BinTree::inorderHelper(Node* node, ostream& out) const
 	inorderHelper(node->right, out);
 }
 
+//---------------------------- retrieve-------------------------------------
+// Helper for operator <<
+// Preconditions: NONE
+// Postconditions: BinTree remains unchanged.
 bool BinTree::retrieve(const NodeData& current, NodeData* &checker) const
 {
     checker = nullptr; // Initialize check to nullptr
@@ -100,6 +112,10 @@ bool BinTree::retrieveHelper(Node* current, const NodeData& currData, NodeData* 
 	}
 }
 
+//----------------------------operator = -------------------------------------
+//  
+// Preconditions: NONE
+// Postconditions: BinTree remains unchanged.
 BinTree& BinTree::operator =(const BinTree& rhs)
 {
     if(this == &rhs){
@@ -245,10 +261,11 @@ bool BinTree::insert(NodeData* input_data)
     if(root == NULL)
 	{
 		Node* temp = new Node;
-		temp->data = input_data;
+		temp->data = new NodeData(*input_data);
 		temp->left = NULL;
 		temp->right = NULL;
 		root = temp;
+		delete input_data;
 		return true;
 	}
 	else
@@ -271,9 +288,10 @@ bool BinTree::insert(NodeData* input_data)
 				if(next == NULL)
 				{
 					current->left = new Node;
-					current->left->data = input_data;
+					current->left->data = new NodeData(*input_data);
 					current->left->left = NULL;
 					current->left->right = NULL;
+					delete input_data;
 					return true;
 				}
 				current = next;
@@ -284,9 +302,10 @@ bool BinTree::insert(NodeData* input_data)
 				if(next == NULL)
 				{
 					current->right = new Node;
-					current->right->data = input_data;
+					current->right->data = new NodeData(*input_data);
 					current->right->left = NULL;
 					current->right->right = NULL;
+					delete input_data;
 					return true;
 				}
 				current = next;
@@ -374,10 +393,13 @@ void BinTree::arrayToBSTree(NodeData* arr[])
 	arrayToBstreeHelper(0, arr_size - 1, arr, root);
 
 	//clear the array after the tree is build
-	for(int i = 0; i < arr_size; i++)
+	for(int i = 0; i < 100; i++)
 	{
+		if(arr[i] != NULL)
+		{
 		delete arr[i];
 		arr[i] = NULL;
+		}
 	}
 }
 

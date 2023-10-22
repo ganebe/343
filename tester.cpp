@@ -35,9 +35,34 @@ int main(){
     cout << A << endl; 
     cout << ndA << ndAB << ndAC << endl;
     BinTree C(A);
+    /*
     for(int i = 0 ; i < 2 ; i++){
         NodeData g("g");
         C.insert(&g);
+    }
+    */
+    BinTree E;
+    cout << "cout empty tree" << endl;
+    cout << E << endl;
+    E.insert(&ndAB);
+    E.insert(&ndAB);
+    cout << E << endl;
+    NodeData ndE("e");
+    NodeData ndG("g");
+    NodeData ndD("d");
+    E.insert(&ndE);
+    E.insert(&ndG);
+    E.insert(&ndD);
+    cout << "E" << E << endl;
+    cout << "E" << endl;
+    E.displaySideways();
+    cout << "A" << endl;
+    A.displaySideways();
+    bool is_equal = E == A;
+    if(is_equal){
+        cout << "something wrong with is equal" << endl;
+    }else{
+        cout << " E != A ";
     }
     /*
     NodeData* nde;
