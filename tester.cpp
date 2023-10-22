@@ -11,6 +11,7 @@ const int ARRAYSIZE = 100;
 
 
 int main(){
+
     NodeData ndA("a");
     NodeData ndAB("ab");
     NodeData ndAC("ac");
@@ -35,12 +36,12 @@ int main(){
     cout << A << endl; 
     cout << ndA << ndAB << ndAC << endl;
     BinTree C(A);
-    /*
+    
     for(int i = 0 ; i < 2 ; i++){
         NodeData g("g");
         C.insert(&g);
     }
-    */
+    
     BinTree E;
     cout << "cout empty tree" << endl;
     cout << E << endl;
@@ -64,7 +65,7 @@ int main(){
     }else{
         cout << " E != A ";
     }
-    /*
+    
     NodeData* nde;
     nde = new NodeData("e");
     cout << "comparing c and a" <<endl;
@@ -78,7 +79,6 @@ int main(){
     cout << "after deleting nde pointer" << endl;
     C.displaySideways();
     cout << C << endl;
-    */
     return 0;
 }
 

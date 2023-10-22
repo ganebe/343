@@ -2,14 +2,17 @@
 
 
 // ------------------------------------------------bintree.cpp -------------------------------------------------------
-// Css 343 B Au 23
+// CSS 343 B Au 23
 // Created on 10/14/2023
 // Last Modified on 10/21/2023
 // Created by Vince Nguyen and Lok Yin Wong 
 // --------------------------------------------------------------------------------------------------------------------
-// Created for assignment 2
+// This file has the implementation of the different methods and functions from the header file. The methods and functions
+// that have helper functions will be above each other to know that they are together. The class BinTree should be able to 
+// to assign, delete, insert, retrieve, turn the array to a binary search tree, turn the binary search tree to an array 
+// and determine whether or not two objects are equal or not with the help from helper functions.
 // --------------------------------------------------------------------------------------------------------------------
-// Notes on specifications, special algorithms, and assumptions.
+// The class should be able to display the proper tree from the file it is reading from
 // --------------------------------------------------------------------------------------------------------------------
 
 
@@ -46,226 +49,267 @@ void BinTree::sideways(Node* current, int level) const
 	}
 }
 
-//---------------------------- operator << -------------------------------------
-// returns a stream that Display all NodeData in the BinTree with inorder traversal, each NodeData will seprate with a space
-// Preconditions: NONE
-// Postconditions: BinTree remains unchanged.
+//------------------------- << overload ---------------------------------
+// Displays the tree to the console
+//-------------------------------------------------------------------------
 ostream& operator <<(ostream& out, const BinTree& other)
 {
-   other.inorderHelper(other.root, out);
+   other.inorderHelper(other.root, out); //Inorder traversal by calling helper function
    out << endl; //adds an extra line after the whole tree is printed
-   return out;
+   return out; //Return output
 }
 
-//---------------------------- inorderHelper-------------------------------------
-// Helper for operator <<
-// Preconditions: NONE
-// Postconditions: BinTree remains unchanged.
+//------------------------- inorderHelper ---------------------------------
+// Helper function to help print out the tree from inorder method
+//-------------------------------------------------------------------------
 void BinTree::inorderHelper(Node* node, ostream& out) const
 {
-	if (node == nullptr)
+	if (node == nullptr) //Checks if node is nullptr 
 	{
 		return;
 	}
-	inorderHelper(node->left, out);
-	out << *(node->data) << " ";
-	inorderHelper(node->right, out);
+	inorderHelper(node->left, out); //Helper function call on left side of tree
+	out << *(node->data) << " "; // Prints data
+	inorderHelper(node->right, out); // Helper function on right side of tree
 }
 
-//---------------------------- retrieve-------------------------------------
-// Helper for operator <<
-// Preconditions: NONE
-// Postconditions: BinTree remains unchanged.
+//------------------------- retrieve ---------------------------------
+// Looks for the node in the tree using a helper function
+//-------------------------------------------------------------------------
 bool BinTree::retrieve(const NodeData& current, NodeData* &checker) const
 {
-    checker = nullptr; // Initialize check to nullptr
+    checker = nullptr; // Initialize checker to nullptr
 
-    if (root == nullptr) // Tree is empty
+    if (root == nullptr) //Checks if tree is empty
     {
         return false;
     }
 
-    return retrieveHelper(root, current, checker);
+    return retrieveHelper(root, current, checker); //Helper function to look for node
 }
 
 
-
+//------------------------- retrieveHelper ---------------------------------
+// Helper function that checks to see if the node is in the tree
+//-------------------------------------------------------------------------
 bool BinTree::retrieveHelper(Node* current, const NodeData& currData, NodeData* &checker) const
 {
-	if (current == nullptr)
+	if (current == nullptr) //Checks if current is nullptr
 	{
-		return false; // Data not found
+		return false; 
 	}
 
-	if (currData == *(current->data))
+	if (currData == *(current->data)) //Compares data
 	{
-		checker = current->data;
-		return true; // Data found
+		checker = current->data; //Set checker to the data
+		return true; 
 	}
-	else if (currData < *(current->data))
+	else if (currData < *(current->data)) //If data is less
 	{
-		return retrieveHelper(current->left, currData, checker); // Search in the left subtree
+		return retrieveHelper(current->left, currData, checker); // Go in the left subtree
 	}
 	else
 	{
-		return retrieveHelper(current->right, currData, checker); // Search in the right subtree
+		return retrieveHelper(current->right, currData, checker); // Go in the right subtree
 	}
 }
 
-//----------------------------operator = -------------------------------------
-//  
-// Preconditions: NONE
-// Postconditions: BinTree remains unchanged.
+//------------------------- Assignment operator ---------------------------------
+// Sets the lhs = rhs
+//-------------------------------------------------------------------------
 BinTree& BinTree::operator =(const BinTree& rhs)
 {
-    if(this == &rhs){
+    if(this == &rhs) //Checks if lhs == rhs
+	{
 		return *this;
 	}
 
 	makeEmpty();
-	if(rhs.root != NULL){
-		root = new Node;
+	if(rhs.root != NULL) //If root of rhs is not nullptr
+	{
+		root = new Node; //Create new root node
 	}
-	nodeCopyHelper(root, rhs.root);
-	return *this;	
+	nodeCopyHelper(root, rhs.root); //Helper function to copy the nodes of rhs
+	return *this; //return object
 }
 
+//------------------------- nodeCopyHelper---------------------------------
+// Helper function to set the lhs = rhs
+//-------------------------------------------------------------------------
+
 void BinTree::nodeCopyHelper(Node* & current_Node, const Node* rhs){
-	if(rhs == NULL){
+	if(rhs == NULL) //If rhs is empty
+	{
 		return;
-	}else{
-			current_Node->data = new NodeData(*(rhs->data));
-			if(rhs->left != NULL){
-				current_Node->left = new Node;
-				nodeCopyHelper(current_Node->left, rhs->left);
-			}else{
-				current_Node->left = NULL;
+	}
+	else
+	{
+			current_Node->data = new NodeData(*(rhs->data)); //Allocate memory and sets current data to rhs->data
+			if(rhs->left != NULL) //If left node of rhs is not nullptr
+			{
+				current_Node->left = new Node; //Creates new node for left side of current
+				nodeCopyHelper(current_Node->left, rhs->left); //Helper function to copy leftside of rhs to current
 			}
-			if(rhs->right != NULL){
-				current_Node->right = new Node;
-				nodeCopyHelper(current_Node->right, rhs->right);
-			}else{
+			else
+			{
+				current_Node->left = NULL; 
+			}
+			if(rhs->right != NULL) //If right side of rhs is not nullptr
+			{
+				current_Node->right = new Node;//Creates new node for right side of current
+				nodeCopyHelper(current_Node->right, rhs->right); // Helper function to copy rightside of rhs to current
+			}
+			else
+			{
 				current_Node->right = NULL;
 			}
 			return;
 	}
 
 }
-
+//------------------------- bstreeToArray ---------------------------------
+// Turns the bstree to an array with the help of a helper function
+//-------------------------------------------------------------------------
 void BinTree::bstreeToArray(NodeData *arr[])
 {
-	int index = 0;
-	bstreeToArrayHelper(root, arr, index);
+	int index = 0; //Initialize index to 0
+	bstreeToArrayHelper(root, arr, index); //Helper function to turn bstree to an array
 	makeEmpty();
 }
-
+//------------------------- bstreeToArrayHelper ---------------------------------
+// Helper function to turn the bstree to an array
+//-------------------------------------------------------------------------
 void BinTree::bstreeToArrayHelper(Node* node, NodeData* arr[], int& index)
 {
-	if (node == nullptr)
+	if (node == nullptr) //Checks if node is equal to nullptr
 	{
 		return;
 	}
-	bstreeToArrayHelper(node->left, arr, index);
-	arr[index] = node->data;
-	index++;
-	node->data = nullptr;
-	bstreeToArrayHelper(node->right, arr, index);
+	bstreeToArrayHelper(node->left, arr, index); //Go through left side of tree
+	arr[index] = node->data; //Copies data from the current node to the index of the array
+	index++; //Increment index of array
+	node->data = nullptr; //Set current data to nullptr
+	bstreeToArrayHelper(node->right, arr, index); //Go through the right side of tree
 }
 
-bool BinTree::operator ==(const BinTree& other) const
-{
-    return equalHelper(root, other.root);
-}
-
+//------------------------- no equality operator ---------------------------------
+// Checks to see if two objects are not equal to each other
+//-------------------------------------------------------------------------
 bool BinTree::operator !=(const BinTree& other) const
 {
-    return !(*this == other);
+    return !(*this == other); //Checks if two objects are not equal to each other
 }
 
+//------------------------- equality operator ---------------------------------
+// Checks to see if two objects are equal to each other using the helper function
+//-------------------------------------------------------------------------
+bool BinTree::operator ==(const BinTree& other) const
+{
+    return equalHelper(root, other.root); //Calls helper function to check if two objects are equal
+}
+//------------------------- equalHelper ---------------------------------
+// Helper function that comapres two objects to see if they are equal or not
+//-------------------------------------------------------------------------
 bool BinTree::equalHelper(const Node* current, const Node* other) const
 {
-   if (current == nullptr && other == nullptr)
+   if (current == nullptr && other == nullptr) //Checks if both objects are nullptr
    {
 	return true;
    }
 
-   if (current == nullptr || other == nullptr)
+   if (current == nullptr || other == nullptr) //Checks if one object or the other is nullptr
    {
 	return false;
    }
 
-   if(current != nullptr && other != nullptr)
+   if(current != nullptr && other != nullptr) //If both objects do not equal nullptr
    {
-	return (*current->data == *other->data) && equalHelper(current->left, other->left) && equalHelper(current->right,other->right);
+	return (*current->data == *other->data) && equalHelper(current->left, other->left) && equalHelper(current->right,other->right); //Compares the data,left side of tree, and right side of tree
    }
 
    return false;
 }
 
-
+//------------------------- isEmpty ---------------------------------
+// Checks to see if the tree is empty or not
+//-------------------------------------------------------------------------
 bool BinTree::isEmpty() const
 {
 
-    if(root == NULL)
+    if(root == NULL) //Checks if root is nullptr
 	{
         return true;
     }
-	else
+	else //root is not nullptr
 	{
         return false;
     }
 
 }
 
+//------------------------- makeEmpty ---------------------------------
+// Deletes the tree with the helper function
+//-------------------------------------------------------------------------
 void BinTree::makeEmpty()
 {
-	makeEmptyHelper(root);
-	root = NULL;
+	makeEmptyHelper(root); //Calls helper function to delete tree
+	root = NULL; //Set root to nullptr
 }
 
+//------------------------- makeEmptyHelper ---------------------------------
+// Helper function to delete the tree
+//-------------------------------------------------------------------------
 void BinTree::makeEmptyHelper(Node* & delete_node)
 {
-	if(delete_node == NULL)
+	if(delete_node == NULL) //If node is nullptr
 	{
 		return;
 	}
 	else
 	{
-		makeEmptyHelper(delete_node->left);
-		makeEmptyHelper(delete_node->right);
-		delete delete_node->data;
-		delete delete_node;
-		delete_node = NULL;
+		makeEmptyHelper(delete_node->left); //Go through left side of tree
+		makeEmptyHelper(delete_node->right); //Go through right side of tree
+		delete delete_node->data; //Delete the nodes data
+		delete delete_node; //Delete the node
+		delete_node = NULL; //Set node to nullptr
 		return;
 	}
 }
-
+//------------------------- Default constructor ---------------------------------
+// Sets root to nullptr
+//-------------------------------------------------------------------------
 BinTree::BinTree()
 {
-    root = NULL;
+    root = NULL; //Sets root to nullptr
 }
-
+//------------------------- copy constructor ---------------------------------
+// Makes a deep copy of the object
+//-------------------------------------------------------------------------
 BinTree::BinTree(BinTree& rhs)
 {
-	root = NULL;
-	*this = rhs;
+	root = NULL; //Sets root to nullptr
+	*this = rhs; //Copy lhs = rhs
 }
-
+//------------------------- Destructor ---------------------------------
+// Deletes the tree by calling makeEmpty function
+//-------------------------------------------------------------------------
 BinTree::~BinTree()
 {
-	makeEmpty();
+	makeEmpty(); //Helper function to delete tree
 }
-
+//------------------------- insert ---------------------------------
+// Inserts a new node
+//-------------------------------------------------------------------------
 bool BinTree::insert(NodeData* input_data)
 {
-    if(root == NULL)
+    if(root == NULL) //Checks if root is nullptr
 	{
-		Node* temp = new Node;
-		temp->data = new NodeData(*input_data);
-		temp->left = NULL;
-		temp->right = NULL;
-		root = temp;
-		delete input_data;
+		Node* temp = new Node; //Create new temp node
+		temp->data = new NodeData(*input_data); //Allocate memory and set temp->data to input->data
+		temp->left = NULL; //Set left side of temp to nullptr
+		temp->right = NULL; //Set right side of temp to nullptr
+		root = temp; // Set root to temp
+		delete input_data; //Delete input_data
 		return true;
 	}
 	else
@@ -278,34 +322,34 @@ bool BinTree::insert(NodeData* input_data)
 
 		while(!is_insert)
 		{
-			if(*current->data == *input_data)
+			if(*current->data == *input_data) //If the data trying to insert exists
 			{
 				return false;
 			}
-			else if(*current->data > *input_data)
+			else if(*current->data > *input_data) //If current data is less than
 			{
-				next = current->left;
-				if(next == NULL)
+				next = current->left; //Go to left
+				if(next == NULL) //If left side is nullptr
 				{
-					current->left = new Node;
-					current->left->data = new NodeData(*input_data);
-					current->left->left = NULL;
-					current->left->right = NULL;
-					delete input_data;
+					current->left = new Node; //Create new node
+					current->left->data = new NodeData(*input_data); //Set the left side data to input_data
+					current->left->left = NULL; //Set left of new node to nullptr
+					current->left->right = NULL; //Set right of new node to nullptr
+					delete input_data; //Delete data
 					return true;
 				}
 				current = next;
 			}
 			else
 			{
-				next = current->right;
-				if(next == NULL)
+				next = current->right; //Go to right side
+				if(next == NULL) //If right side is nullptr
 				{
-					current->right = new Node;
-					current->right->data = new NodeData(*input_data);
-					current->right->left = NULL;
-					current->right->right = NULL;
-					delete input_data;
+					current->right = new Node; //Create new node
+					current->right->data = new NodeData(*input_data); //Set the right side data to input_data
+					current->right->left = NULL; //Set left of new node to nullptr
+					current->right->right = NULL; //Set right of new node to nullptr
+					delete input_data; //Delete data
 					return true;
 				}
 				current = next;
@@ -313,10 +357,12 @@ bool BinTree::insert(NodeData* input_data)
 		}
 		
 	}
-	return false; //something went wrong if this line get excute
+	return false; 
 }
 
-
+//------------------------- getHeight ---------------------------------
+// Gets the height of the tree at a specific node
+//-------------------------------------------------------------------------
 int BinTree::getHeight(const NodeData& search_target)
 {
 	Node * target_pointer;
@@ -331,7 +377,9 @@ int BinTree::getHeight(const NodeData& search_target)
 	}
 
 }
-
+//------------------------- exist ---------------------------------
+// 
+//-------------------------------------------------------------------------
 bool BinTree::exist(Node* & tree, const NodeData& search_target, Node* & target_location) const
 {
 	if(tree == NULL)
@@ -350,7 +398,9 @@ bool BinTree::exist(Node* & tree, const NodeData& search_target, Node* & target_
 		return exist(tree->left, search_target, target_location) || exist(tree->right, search_target, target_location);
 	}
 }
-
+//------------------------- getHeightHelper ---------------------------------
+// Helper function that calculates the height of the tree
+//-------------------------------------------------------------------------
 int BinTree::getHeightHelper(Node* & location)const
 {
 	if(location == NULL)
@@ -369,7 +419,9 @@ int BinTree::getHeightHelper(Node* & location)const
 
 }
 
-
+//------------------------- arrayToBSTree---------------------------------
+// Turns the array into a bstree using a helper function
+//-------------------------------------------------------------------------
 void BinTree::arrayToBSTree(NodeData* arr[])
 {
 	int arr_size = 0;
@@ -402,7 +454,9 @@ void BinTree::arrayToBSTree(NodeData* arr[])
 		}
 	}
 }
-
+//------------------------- arrayToBstreeHelper ---------------------------------
+// Helper function to turn an array into a bstree
+//-------------------------------------------------------------------------
 void BinTree::arrayToBstreeHelper(int low, int high, NodeData* arr[], Node* & insert_node)
 {
 	if(high < low)

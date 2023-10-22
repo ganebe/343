@@ -5,14 +5,16 @@
 using namespace std;
 
 // ------------------------------------------------bintree.h -------------------------------------------------------
-// Css 343 B Au 23
+// CSS 343 B Au 23
 // Created on 10/14/2023
 // Last Modified on 10/21/2023
 // Created by Vince Nguyen and Lok Yin Wong 
 // --------------------------------------------------------------------------------------------------------------------
-// Created for assignment 2
+// This header file contains the class BinTree. The class has different methods and functions to create a tree by reading
+// the values from a file. The class should be able to assign, delete, insert, retrieve, turn the array to a binary search tree,
+// turn the binary search tree to an array and determine whether or not two objects are equal or not with the help from helper functions.
 // --------------------------------------------------------------------------------------------------------------------
-// Notes on specifications, special algorithms, and assumptions.
+// The class should be able to display the proper tree from the file it is reading from
 // --------------------------------------------------------------------------------------------------------------------
 
 class BinTree{
