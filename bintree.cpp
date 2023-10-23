@@ -13,7 +13,6 @@
 // and determine whether or not two objects are equal or not with the help from helper functions.
 // --------------------------------------------------------------------------------------------------------------------
 // The class should be able to display the proper tree from the file it is reading from
-// The insert function uses shallow copy instead of deep copy, thus please insert Nodedata that already allocated memory
 // --------------------------------------------------------------------------------------------------------------------
 
 
@@ -333,10 +332,11 @@ bool BinTree::insert(NodeData* input_data)
     if(root == nullptr) //Checks if root is nullptr
 	{
 		Node* temp = new Node; 					//Create new temp node
-		temp->data = input_data; 		//set temp->data to point to the input_data's address 
+		temp->data = new NodeData(*input_data); //Creates a deep copy of the Nodedata 
 		temp->left = nullptr; 						//Set left side of temp to nullptr
 		temp->right = nullptr; 					//Set right side of temp to nullptr
 		root = temp; 							// Set root to temp
+		delete input_data;						//free the memory allocated 
 		return true;
 	}
 	else
@@ -359,9 +359,10 @@ bool BinTree::insert(NodeData* input_data)
 				if(next == nullptr) 									//If left side is nullptr
 				{
 					current->left = new Node; 						//Create new node
-					current->left->data = input_data;	 ////set temp->data to point to the input_data's address 
+					current->left->data = new NodeData(*input_data);	 //Creates a deep copy of the Nodedata 
 					current->left->left = nullptr; 					//Set left of new node to nullptr
 					current->left->right = nullptr; 					//Set right of new node to nullptr
+					delete input_data;						//free the memory allocated 
 					return true;
 				}
 				current = next;
@@ -372,9 +373,10 @@ bool BinTree::insert(NodeData* input_data)
 				if(next == nullptr) 									//If right side is nullptr
 				{
 					current->right = new Node; 						//Create new node
-					current->right->data = input_data; 		////set temp->data to point to the input_data's address 
+					current->right->data  = new NodeData(*input_data);	 //Creates a deep copy of the Nodedata 
 					current->right->left = nullptr; 					//Set left of new node to nullptr
 					current->right->right = nullptr; 					//Set right of new node to nullptr
+					delete input_data;						//free the memory allocated 
 					return true;
 				}
 				current = next;
