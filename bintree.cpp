@@ -321,10 +321,9 @@ BinTree::~BinTree()
 
 //------------------------- insert ---------------------------------
 // Inserts a new node using shallow copy to aviod memroy leak in lab2.cpp
-// percondition::User should allocated memroy for nodedata before inserting and do not
-// insert the same nodedata to two bintree.
-// posting condition:: Retrun true if there is no duplicated in the tree and inserts
-// the nodedata data to the tree, other wise return false and the tree stays the same
+// percondition::User should allocated memroy for nodedata before inserting 
+// posting condition:: Retrun true if there is no duplicated in the tree,inserts
+// the nodedata data to the tree and free the memroy from the pointer that gets passed in, other wise return false and the tree stays the same
 //-------------------------------------------------------------------------
 
 bool BinTree::insert(NodeData* input_data)
