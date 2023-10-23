@@ -322,8 +322,10 @@ BinTree::~BinTree()
 
 //------------------------- insert ---------------------------------
 // Inserts a new node using shallow copy to aviod memroy leak in lab2.cpp
-// User should allocated memroy for nodedata before inserting and do not
+// percondition::User should allocated memroy for nodedata before inserting and do not
 // insert the same nodedata to two bintree.
+// posting condition:: Retrun true if there is no duplicated in the tree and inserts
+// the nodedata data to the tree, other wise return false and the tree stays the same
 //-------------------------------------------------------------------------
 
 bool BinTree::insert(NodeData* input_data)
@@ -453,7 +455,8 @@ int BinTree::getHeightHelper(Node* & location)const
 
 //------------------------- arrayToBSTree---------------------------------
 // Turns the array into a bstree using a helper function
-// The array must not be modify outside of the class
+// percondition::The array must not be modify outside of the class
+// postcondition:: A balanced tree is builed based on the nodes in the array
 //-------------------------------------------------------------------------
 
 void BinTree::arrayToBSTree(NodeData* arr[])
