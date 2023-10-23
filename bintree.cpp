@@ -13,6 +13,7 @@
 // and determine whether or not two objects are equal or not with the help from helper functions.
 // --------------------------------------------------------------------------------------------------------------------
 // The class should be able to display the proper tree from the file it is reading from
+// The insert function uses shallow copy instead of deep copy, thus please insert Nodedata that already allocated memory
 // --------------------------------------------------------------------------------------------------------------------
 
 
@@ -77,6 +78,7 @@ void BinTree::inorderHelper(Node* node, ostream& out) const
 
 //------------------------- retrieve ---------------------------------
 // Looks for the node in the tree using a helper function
+// and user shouldn't modifly the NodeData to break the tree structure
 //-------------------------------------------------------------------------
 
 bool BinTree::retrieve(const NodeData& current, NodeData* &checker) const
@@ -194,9 +196,8 @@ void BinTree::bstreeToArrayHelper(Node* node, NodeData* arr[], int& index)
 	}
 
 	bstreeToArrayHelper(node->left, arr, index); //Go through left side of tree
-	arr[index] = node->data; 					//Copies data from the current node to the index of the array
+	arr[index] = new NodeData(* node->data); 					//Copies data from the current node to the index of the array
 	index++; 									//Increment index of array
-	node->data = nullptr; 						//Set current data to nullptr
 	bstreeToArrayHelper(node->right, arr, index); //Go through the right side of tree
 }
 
@@ -320,7 +321,9 @@ BinTree::~BinTree()
 }
 
 //------------------------- insert ---------------------------------
-// Inserts a new node
+// Inserts a new node using shallow copy to aviod memroy leak in lab2.cpp
+// User should allocated memroy for nodedata before inserting and do not
+// insert the same nodedata to two bintree.
 //-------------------------------------------------------------------------
 
 bool BinTree::insert(NodeData* input_data)
@@ -328,11 +331,10 @@ bool BinTree::insert(NodeData* input_data)
     if(root == nullptr) //Checks if root is nullptr
 	{
 		Node* temp = new Node; 					//Create new temp node
-		temp->data = new NodeData(*input_data); //Allocate memory and set temp->data to input->data
+		temp->data = input_data; 		//set temp->data to point to the input_data's address 
 		temp->left = nullptr; 						//Set left side of temp to nullptr
 		temp->right = nullptr; 					//Set right side of temp to nullptr
 		root = temp; 							// Set root to temp
-		delete input_data; 						//Delete input_data
 		return true;
 	}
 	else
@@ -355,10 +357,9 @@ bool BinTree::insert(NodeData* input_data)
 				if(next == nullptr) 									//If left side is nullptr
 				{
 					current->left = new Node; 						//Create new node
-					current->left->data = new NodeData(*input_data); //Set the left side data to input_data
+					current->left->data = input_data;	 ////set temp->data to point to the input_data's address 
 					current->left->left = nullptr; 					//Set left of new node to nullptr
 					current->left->right = nullptr; 					//Set right of new node to nullptr
-					delete input_data; 								//Delete data
 					return true;
 				}
 				current = next;
@@ -369,10 +370,9 @@ bool BinTree::insert(NodeData* input_data)
 				if(next == nullptr) 									//If right side is nullptr
 				{
 					current->right = new Node; 						//Create new node
-					current->right->data = new NodeData(*input_data); //Set the right side data to input_data
+					current->right->data = input_data; 		////set temp->data to point to the input_data's address 
 					current->right->left = nullptr; 					//Set left of new node to nullptr
 					current->right->right = nullptr; 					//Set right of new node to nullptr
-					delete input_data; 								//Delete data
 					return true;
 				}
 				current = next;
@@ -404,7 +404,10 @@ int BinTree::getHeight(const NodeData& search_target)
 }
 
 //------------------------- exist ---------------------------------
-// 
+// Similar to retrieve, it check if a specific node is in the tree
+// if so returns true and set target_location to where the node is
+// However unlike retrieve was implemented for binary search tree only
+// exist can apply to all binary tree
 //-------------------------------------------------------------------------
 
 bool BinTree::exist(Node* & tree, const NodeData& search_target, Node* & target_location) const
@@ -450,10 +453,12 @@ int BinTree::getHeightHelper(Node* & location)const
 
 //------------------------- arrayToBSTree---------------------------------
 // Turns the array into a bstree using a helper function
+// The array must not be modify outside of the class
 //-------------------------------------------------------------------------
 
 void BinTree::arrayToBSTree(NodeData* arr[])
 {
+
 	int arr_size = 0; 				//Set array size to 0
 	for(int i = 0; i < 100; i++)
 	{
@@ -473,13 +478,10 @@ void BinTree::arrayToBSTree(NodeData* arr[])
 	arrayToBstreeHelper(0, arr_size - 1, arr, root); //Helper function to construct bstree
 
 	
-	for(int i = 0; i < 100; i++)	//clear the array after the tree is build
+	for(int i = 0; i < arr_size; i++)	//clear the array after the tree is build
 	{
-		if(arr[i] != nullptr)
-		{
 		delete arr[i];
 		arr[i] = nullptr;
-		}
 	}
 }
 
